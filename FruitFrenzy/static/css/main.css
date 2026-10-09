@@ -1,0 +1,167 @@
+/* ── Brand colours ─────────────────────────────────────────────── */
+:root {
+  --vs-green-deep:  #1b3a2d;
+  --vs-green-mid:   #2d6a4f;
+  --vs-amber:       #c9892a;
+  --vs-amber-light: #e8a94a;
+}
+
+/* ── Navbar ─────────────────────────────────────────────────────── */
+.navbar_BackgroundColor {
+  background-color: var(--vs-green-deep) !important;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
+}
+
+.vs-brand {
+  font-family: 'Playfair Display', Georgia, serif !important;
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  color: var(--vs-amber-light) !important;
+  letter-spacing: 0.4px;
+}
+.vs-brand:hover { color: #fff !important; }
+
+/* Nav links inherit navbar-dark white colouring from Bootstrap */
+
+/* Login / Sign Up buttons */
+.vs-btn-ghost {
+  display: inline-block;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.9) !important;
+  padding: 6px 18px;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none !important;
+  line-height: 1.5;
+  transition: border-color 0.15s, color 0.15s;
+  margin-right: 6px;
+}
+.vs-btn-ghost:hover {
+  border-color: var(--vs-amber-light);
+  color: var(--vs-amber-light) !important;
+}
+
+.vs-btn-solid {
+  display: inline-block;
+  background: var(--vs-amber);
+  color: #fff !important;
+  padding: 6px 18px;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none !important;
+  line-height: 1.5;
+  transition: background 0.15s;
+}
+.vs-btn-solid:hover { background: var(--vs-amber-light); }
+
+/* ── Homepage hero text ─────────────────────────────────────────── */
+.vs-hero-text {
+  font-size: 18px !important;
+  line-height: 1.75;
+}
+
+.vs-hero-chip {
+  display: inline-block;
+  background: var(--vs-amber);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+.vs-hero-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(30px, 4vw, 48px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+.vs-hero-title em {
+  color: var(--vs-amber-light);
+  font-style: normal;
+}
+
+/* ── Badge images ───────────────────────────────────────────────── */
+.home_text {
+  text-align: justify;
+}
+
+.image_col {
+  margin: 15px !important;
+}
+
+.image_col img {
+  border: 2.5px solid rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  transition: border-color 0.2s, transform 0.2s;
+}
+.image_col img:hover {
+  border-color: var(--vs-amber-light) !important;
+  transform: scale(1.04);
+}
+
+/* ── Misc helpers ───────────────────────────────────────────────── */
+.welcome {
+  margin-top: 8px !important;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.mb-4 {
+  --bs-card-border-color: none !important;
+}
+
+.badge {
+  padding-left: 9px;
+  padding-right: 9px;
+  border-radius: 9px;
+}
+
+#lblCartCount {
+  font-size: 12px;
+  background: #e63946;
+  color: #fff;
+  padding: 0 5px;
+  vertical-align: top;
+  margin-left: -10px;
+  border-radius: 9px;
+}
+
+.button_text_color { color: #fff !important; }
+
+.button_margin {
+  margin: 2px !important;
+  min-width: 115px !important;
+}
+
+.card { min-height: 200px !important; }
+
+.product_div { margin-bottom: 5% !important; }
+
+/* ── Product card hover ─────────────────────────────────────────── */
+.card:hover {
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+/* ── Body background ────────────────────────────────────────────── */
+body {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.25)), url('fruitss.png');
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+@media (max-width: 767px) {
+  body {
+    background-image: url('fruitss.png');
+    background-size: cover;
+    background-attachment: fixed;
+  }
+}

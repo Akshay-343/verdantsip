@@ -1,0 +1,103 @@
+{% extends "FruitFrenzy/base.html" %}
+
+<!-- Bootstrap CSS -->
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+{% block content %}
+<div class="container" style="background-color: white;padding:30px;border-radius: 20px; " >
+<h2  >Our Products:</h2>
+<form class="form-inline mb-3" method="GET" action="{% url 'product_list' %}">
+<label>
+<input width="500px" class="form-control mr-2" type="text" name="search" placeholder="Search by product name" value="{{ request.GET.search }}">
+</label>
+              <button  class="btn btn-primary"  style="height: 40px;margin-top: -5px" type="submit" >
+                <i  class="fa" style="font-size:24px">&#xf002;</i>
+                </button>
+    </form>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-end">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#filterModal">
+                    Filters   <i  class="fa" style="font-size:20px">&#xf0b0;</i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+{% if products %}
+    <div class="row mt-4" style="background-color: white;border-radius: 30px;padding: 20px;">
+        <br><br>
+        {% for product in products %}
+            <div class="col-md-3 col-sm-6 product_div" style="margin-bottom: 20px; ">
+            <a href="{{ product.get_absolute_url }}">
+                <div class="card mb-4">
+                    <img src="{{ product.product_image.url }}" alt="{{ product.product_name }} Image" style="max-width: 100%;">
+                    <div class="card-body">
+                       <a style="color: black; font-size: 21px; text-decoration: none; display: inline-block; max-width: 100%;" class="text-truncate" href="{{ product.get_absolute_url }}" title="{{ product.product_name }}"><strong>{{ product.product_name }}</strong></a>
+
+                        <p style="font-size: 19px">Price: ${{ product.product_price }}</p>
+                    </div>
+                    </a>
+                </div>
+                {% if user.is_superuser %}
+                    <div class="text-center">
+                        <a style="text-decoration: none" class="btn btn-danger button_margin" href="{% url 'product_delete' pk=product.pk %}"
+                                  onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+                        <a style="text-decoration: none" class="btn btn-primary button_margin" href="{% url 'product_update' pk=product.pk %}">Edit Product</a>
+                    </div>
+                {% endif %}
+            </div>
+            {% if forloop.counter|divisibleby:4 %}
+                </div><div class="row mt-4" style="background-color: white;border-radius: 30px;padding: 20px;">
+            {% endif %}
+        {% endfor %}
+    </div>
+{% else %}
+<p style="color: black;font-size: 30px;">No products found.</p>
+{% endif %}
+</div>
+
+<!-- Filter Modal -->
+<div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filterModalLabel">Filters</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Add your filter options here -->
+                <form action="{% url 'product_list' %}" method="GET">
+                    <div class="mb-3">
+                        <label for="ingredients">Ingredients:</label>
+                        <input type="text" name="ingredients" id="ingredients" class="form-control" placeholder="Enter ingredients">
+                    </div>
+                    <div class="mb-3">
+                        <label for="price">Price:</label>
+                        <input type="number" name="price" id="price" class="form-control" placeholder="Enter maximum price">
+                    </div>
+                    <div class="mb-3">
+                        <label for="allergen">Allergen:</label>
+                        <select name="allergen" id="allergen" class="form-select">
+                            <option value="">All</option>
+                            {% for allergen in allergen_list %}
+                                <option value="{{ allergen.allergen_id }}">{{ allergen.allergen_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Apply Filters</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+{% endblock %}

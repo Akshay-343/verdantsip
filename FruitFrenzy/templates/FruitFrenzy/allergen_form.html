@@ -1,0 +1,84 @@
+{% extends "FruitFrenzy/base.html" %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                {% if perms.FruitFrenzy.create_allergen or perms.FruitFrenzy.edit_allergen %}
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title" style="text-align: center">Allergen Form</h2>
+                            <form style="padding-left: 10px;text-align: center" action="" method="POST">
+                                {% csrf_token %}
+                                {{ form|crispy }}
+                                <br>
+                                <div class="text-center">
+                                    <button type="submit" style="width: 200px" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="alert alert-danger">
+                        <p class="mb-0">You do not have permission to access this feature.</p>
+                    </div>
+                    <div class="text-center">
+                        <a href="{% url 'index' %}" class="btn btn-primary">Home</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <style>
+    input{
+        width: 200px;
+    }
+
+
+         .card {
+                margin-top: 20px;
+                box-shadow: none;
+                border: none;
+
+
+            }
+
+            .card-title {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+
+            .btn-primary {
+                width: 100%;
+            }
+
+            .alert {
+                margin-top: 20px;
+            }
+        /* Mobile styles */
+        @media (max-width: 767px) {
+            .card {
+                margin-top: 20px;
+                box-shadow: none;
+                border: none;
+
+            }
+
+            .card-title {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+
+            .btn-primary {
+                width: 100%;
+            }
+
+            .alert {
+                margin-top: 20px;
+            }
+        }
+    </style>
+{% endblock %}

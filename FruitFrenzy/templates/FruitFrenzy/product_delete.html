@@ -1,0 +1,15 @@
+{% extends "FruitFrenzy/base.html" %}
+
+{% block content %}
+    {% if perms.FruitFrenzy.delete_product %}
+        <h1>Delete Product {{ product.product_name }}</h1>
+        <form method="Post">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-danger" value="Delete">
+            <a href="{% url 'index' pk=product.id %} ">Cancel</a>
+        </form>
+    {% else %}
+        You do not have permission to access this feature
+        <a href="{% url 'index' %}">Home</a>
+    {% endif %}
+{% endblock %}

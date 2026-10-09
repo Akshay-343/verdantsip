@@ -1,0 +1,94 @@
+{% extends "FruitFrenzy/base.html" %}
+
+{% block content %}
+<style>
+.product-container {
+flex: 1;
+}
+        .product-details {
+        display: flex;
+        align-items: center;
+    }
+
+    .product-image {
+        min-height: 300px;
+        max-height: 400px;
+        max-width: 600px;
+        margin-right: 20px;
+    }
+
+    .product-info {
+        flex: 1;
+    }
+
+    /* Styles for mobile */
+    @media (max-width: 767px) {
+        .product-details {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .product-image {
+            margin-right: 0;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .product-info {
+            padding: 0 20px;
+        }
+    }
+</style>
+<div style="background-color: white;padding-left: 30px; padding-right:30px; padding-bottom: 50px; border-radius: 20px;">
+    <div class="product-container" style="background-color: white; border-radius: 20px;">
+        <br>
+        <div style="padding-left: 20px">
+            <a class="btn btn-primary" href="{% url 'product_list' %}">&nbsp;&lt; All Products</a>
+        </div>
+        <br><br>
+    </div>
+
+    <div class="product-details" style="background-color: white; border-radius: 20px;">
+        <br>
+        <br>
+        <img class="product-image" src="{{ product.product_image.url }}" alt="{{ product.product_name }} Image">
+        <div class="product-info">
+            <h3>{{ product.product_name }}</h3>
+            <p style="font-size: 30px" id="product-price">$ {{ product.product_price }}</p>
+
+            <p>Description: {{ product.product_description }}</p>
+            <p>Ingredients: {{ product.product_ingredients }}</p>
+            <p>Allergen: {{ product.allergen }}</p>
+
+            {% if user.is_authenticated %}
+                <form method="post" action="{% url 'product_detail' pk=product.pk %}">
+                    {% csrf_token %}
+                    <label for="quantity">Quantity: </label>
+                    <input style="width: 40px;" type="number" id="quantity" name="quantity" value="0" min="1"
+                        onchange="updatePriceAndTax()"><br><br>
+                    <p><span id="qty-amount"></span>&nbsp; <span id="tax-amount">&nbsp;</span></p>
+
+                    <p> <span id="updated-price">&nbsp;</span></p>
+                    <button type="submit" class="btn btn-primary">Add to Cart</button>
+                </form>
+            {% else %}
+                <a class="btn btn-primary" href="{% url 'login' %}">Login to add products to your cart</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+    <br>
+<script>
+    function updatePriceAndTax() {
+        const quantity = document.getElementById("quantity").value;
+        const productPrice = parseFloat("{{ product.product_price }}");
+        const taxRate = 0.07; // 7% tax rate
+        const taxAmount = productPrice * quantity * taxRate;
+        const updatedPrice = productPrice * quantity + taxAmount;
+        const product_quantity = productPrice * quantity;
+        document.getElementById("qty-amount").textContent = "Price: $" + product_quantity.toFixed(2);
+        document.getElementById("updated-price").textContent = "Total: $" + updatedPrice.toFixed(2);
+        document.getElementById("tax-amount").textContent = "Tax: $" + taxAmount.toFixed(2);
+    }
+</script>
+{% endblock %}

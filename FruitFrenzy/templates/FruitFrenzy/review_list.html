@@ -1,0 +1,59 @@
+{% extends 'FruitFrenzy/base.html' %}
+{% load static %}
+
+<style>
+
+</style>
+{% block content %}
+<div style="background-color: white;border-radius: 20px;padding: 20px;">
+    <h1>Reviews</h1>
+    <a class="btn btn-primary" href="{% url 'create_review' %}">+ Add a review</a>
+    <div class="rev" style="padding: 20px;">
+{% if reviews %}
+      {% for review in reviews %}
+            <div class="cont" style="border: 1px solid black; padding: 20px;  margin: 20px;" >
+          <img class="avatar" style="width:50px;height: 50px;" src="{% static 'images/avatar.png' %}" alt="Image"><span style="font-size: 20px;">{{ review.user }}</span>
+
+               <br>
+                {% if  review.review_rating  == 5 %}
+                     <i  class="fa" style="font-size:20px;color:#FFC30B ">&#xf005;&#xf005;&#xf005;&#xf005;&#xf005;</i>
+                    {% elif review.review_rating == 4 %}
+                    <i  class="fa" style="font-size:20px;color:#FFC30B">&#xf005;&#xf005;&#xf005;&#xf005;</i>
+                    {% elif review.review_rating == 3 %}
+                    <i  class="fa" style="font-size:20px;color:#FFC30B">&#xf005;&#xf005;&#xf005;</i>
+                                 {% elif review.review_rating == 2 %}
+                    <i  class="fa" style="font-size:20px;color:#FFC30B">&#xf005;&#xf005;</i>
+                                     {% elif review.review_rating == 1 %}
+                    <i  class="fa" style="font-size:20px;color:#FFC30B">&#xf005;</i>
+                    {% endif %}
+            <span><strong style="font-size: 20px;">&nbsp;&nbsp;{{ review.review_title }}</strong></span>
+
+
+              <p class="text">{{ review.review_content }}</p>
+
+            <div class="product-image">
+              {% if review.product_image %}
+                <img style="height: 150px;" src="{{ review.product_image.url }}" alt="Product Image" height="50">
+              {% else %}
+                No Image
+              {% endif %}
+            </div>
+              {% if user.is_authenticated and user.is_superuser %}
+                <form action="{% url 'review_delete' review.id %}" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="_method" value="DELETE">
+                  <button type="submit" class="btn btn-danger mt-3">Delete</button>
+                </form>
+              {% endif %}
+         </div>
+
+
+      {% endfor %}
+    {% else %}
+<p>No reviews are uploaded yet...</p>
+{% endif %}
+   </div>
+    </div>
+    <br>
+    <br>
+{% endblock %}

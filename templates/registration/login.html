@@ -1,0 +1,138 @@
+{% extends "FruitFrenzy/base.html" %}
+<style>
+
+
+</style>
+{% block content %}
+
+  {% if form.errors %}
+    <p class="error-msg" style="color: white;text-align: center; font-size: 20px;">Your username and password didn't match. Please try again.</p>
+  {% endif %}
+
+  {% if next %}
+    {% if user.is_authenticated %}
+      <p class="error-msg">Your account doesn't have access to this page. To proceed,
+      please login with an account that has access.</p>
+    {% else %}
+      <p class="info-msg">Please login to see this page.</p>
+    {% endif %}
+  {% endif %}
+
+  <style>
+
+    .login-container {
+      max-width: 350px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .login-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .login-container table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    .login-container table td {
+      padding: 10px;
+    }
+
+    .login-container table td:first-child {
+      text-align: right;
+      width: 40%;
+      font-weight: bold;
+      color: #555;
+    }
+
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+      width: 90%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .login-container .btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .login-container .btn:hover {
+      background-color: blue;
+    }
+
+    .login-container .info-msg,
+    .login-container .error-msg {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .login-container .error-msg {
+      color: #ff0000;
+    }
+
+    .login-container .info-msg {
+      color: #007bff;
+    }
+
+    .login-container p {
+      text-align: center;
+      font-size: 14px;
+      margin-top: 20px;
+    }
+
+    .login-container p a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .login-container p a:hover {
+      text-decoration: underline;
+    }
+
+  </style>
+    <br>
+<div class="bg">
+  <div class="login-container">
+    <h2>Login</h2>
+    <form method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+      <table>
+        <tr>
+          <td>{{ form.username.label_tag }}</td>
+          <td>{{ form.username }}</td>
+        </tr>
+        <tr>
+          <td>{{ form.password.label_tag }}</td>
+          <td>{{ form.password }}</td>
+        </tr>
+      </table>
+      <input class="btn btn-primary" type="submit" value="Login">
+      <input type="hidden" name="next" value="{{ next }}">
+      <p><strong>Don't have an account?</strong>
+        <a href="{% url 'register' %}">Sign Up Now</a>
+      </p>
+      <p><a href="{% url 'password_reset' %}">Forgot Password</a></p>
+    </form>
+  </div>
+</div>
+{% endblock %}

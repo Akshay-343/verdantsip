@@ -1,0 +1,107 @@
+{% extends "FruitFrenzy/base.html" %}
+
+{% block content %}
+    <style>
+        .add-product-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .add-product-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .add-product-container .form-group {
+            margin-bottom: 20px;
+        }
+
+        .add-product-container label {
+            display: block;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .add-product-container input[type="text"],
+        .add-product-container input[type="number"],
+        .add-product-container textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .add-product-container .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .add-product-container .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .add-product-container p {
+            text-align: center;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        .add-product-container p a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .add-product-container p a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    <div class="add-product-container">
+        <h2>Add Product</h2>
+
+            <form method="post" action="{% url 'product_update(pk)' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id_product_name">Product Name:</label>
+                    {{ form.product_name }}
+                </div>
+                <div class="form-group">
+                    <label for="id_product_price">Product Price:</label>
+                    {{ form.product_price }}
+                </div>
+                <div class="form-group">
+                    <label for="id_product_description">Product Description:</label>
+                    {{ form.product_description }}
+                </div>
+                <div class="form-group">
+                    <label for="id_product_ingredients">Product Ingredients:</label>
+                    {{ form.product_ingredients }}
+                </div>
+                <div class="form-group">
+                    <label for="id_product_image">Product Image:</label>
+                    {{ form.product_image }}
+                </div>
+                <div class="form-group">
+                    <label for="id_allergen">Allergen:</label>
+                    {{ form.allergen }}
+                </div>
+                <input class="btn btn-primary" type="submit" value="Add Product">
+            </form>
+
+    </div>
+{% endblock %}

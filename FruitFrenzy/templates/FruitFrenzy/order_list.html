@@ -1,0 +1,47 @@
+{% extends 'FruitFrenzy/base.html' %}
+
+{% block content %}
+    <div style="border-radius: 20px; background-color: white; padding: 20px;">
+        <h1>All Orders</h1>
+
+        {% if orders %}
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>User</th>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                             <th>Tax</th>
+                            <th>Total</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                            <tr>
+                                <td>{{ order.id }}</td>
+                                <td>{{ order.user }}</td>
+                                <td>{{ order.product }}<br></td>
+                                <td style="padding-left: 30px">{{ order.quantity }}</td>
+                                <td>${{ order.subtotal }}</td>
+                                <td>${{ order.tax }}</td>
+                                <td>${{ order.price_tax }}</td>
+                                <td>
+                                    <form action="{% url 'delete_order' order.id %}" method="post">
+                                        {% csrf_token %}
+                                        <button class="btn btn-danger" type="submit" onclick="return confirm('Are you sure you want to cancel this order?')">Cancel order</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p>No orders available.</p>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "FruitFrenzy/base.html" %}
+
+{% block content %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <style>
+        a {
+            text-decoration: none
+        }
+    </style>
+    <div style="padding: 20px;background-color: white;border-radius: 20px;">
+        <h2>All Allergens</h2>
+        {% if allergen_list %}
+            <div class="row">
+                {% for allergen in allergen_list %}
+                    {% if allergen.allergen_name != 'Non-allergenic product' %}
+                        <div class="col-md-2">
+                            <h2 style="font-size: 30px;">{{ allergen.allergen_name }}</h2>
+                            {% if user.is_superuser %}
+                                <div >
+                                    <a class="btn btn-danger button_margin" href="{% url 'allergen_delete' pk=allergen.pk %}"
+                                        onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+                                </div>
+                                <div >
+                                    <a class="btn btn-primary button_margin" href="{% url 'allergen_update' pk=allergen.pk %}">Edit</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                        {% elif allergen_list|length == 1 %}
+                             <p>There are no allergens.</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% else %}
+
+        {% endif %}
+    </div>
+{% endblock %}

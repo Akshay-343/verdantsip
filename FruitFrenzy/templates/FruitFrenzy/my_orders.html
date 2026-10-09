@@ -1,0 +1,55 @@
+{% extends 'FruitFrenzy/base.html' %}
+
+{% block content %}
+    {% if messages %}
+      <div class="alert alert-success mt-4">
+        {% for message in messages %}
+          {{ message }}
+        {% endfor %}
+      </div>
+    {% endif %}
+    <div style="background-color: white;padding: 20px;border-radius: 20px;">
+        <h1>My Orders</h1>
+
+        {% if order_items %}
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Date & Time</th>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order_items %}
+                            <tr>
+                                <td>{{ item.date_ordered }}</td>
+                                <td>
+                                    <strong>{{ item.product.product_name }}</strong><br>
+                                    <img style="width: 100%; max-width: 180px; height: auto;" src="{{ item.product.product_image.url }}" alt="Image">
+                                </td>
+                                <td>{{ item.quantity }}</td>
+                                <td>${{ item.price_tax }}</td>
+                                <td>
+                                    <form action="{% url 'remove_order' item.id %}" method="POST">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to Cancel your order?')">Cancel order</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <p>
+                <a href="{% url 'send_order_email' %}" class="send-email-link">Click here to get order summary to your registered email</a>
+            </p>
+        {% else %}
+            <p style="font-size: 20px;">No orders placed.</p>
+        {% endif %}
+    </div>
+{% endblock %}

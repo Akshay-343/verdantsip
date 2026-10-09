@@ -1,0 +1,13 @@
+Order Details
+
+Dear {{ user.username }},
+
+Thank you for your order. Here are the details:
+
+Product           Quantity    Price
+----------------------------------
+{% for item in order_items %}
+{{ item.product.product_name }}    {{ item.quantity }}        ${{ item.product.product_price }}
+{% endfor %}
+
+Thank you for shopping with us!

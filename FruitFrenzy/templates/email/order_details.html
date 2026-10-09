@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Order Details:</title>
+</head>
+<body>
+    <h2>Order Summary</h2>
+    <p>Hello {{ user.username }},</p>
+    <p>Thank you for your order. Here are the details:</p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date & Time</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in order_items %}
+            <tr>
+                 <td>{{ item.date_ordered }}</td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item.product.product_name }}&nbsp;</td>
+                <td >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item.quantity }}&nbsp;</td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${{ item.price_tax }}&nbsp;</td>
+
+            </tr>
+            {% endfor %}
+        <tr>
+                    <td colspan="2" ><strong></strong></td>
+                   <td><strong>Items: {{ total_count }}</strong></td>
+                    <td><strong>Total: ${{ total_price }}</strong></td>
+
+
+
+                </tr>
+        </tbody>
+    </table>
+    <p>Thank you for shopping with us!</p>
+    <p>We hope to see you again soon.</p>
+</body>
+</html>

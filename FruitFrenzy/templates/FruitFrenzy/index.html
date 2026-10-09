@@ -1,0 +1,46 @@
+{% extends 'FruitFrenzy/base.html' %}
+{% load static %}
+{% block content %}
+
+    <div>
+        <div class="container" style="color: white">
+
+            <div class="home_text vs-hero-text">
+               <span class="vs-hero-chip">100% Organic &middot; Cold-Pressed</span>
+               <h1 class="vs-hero-title">Pure juice, <em>naturally</em> crafted for you.</h1>
+               At VerdantSip, we believe that pure organic fruits make the best juices and healthy snacks. We take pride in sourcing premium quality, preservative-free juice prepared only from fresh, cleaned, and non-GMO fruit. Our team of expert juicers use fresh ingredients and the latest technology to ensure that every sip of our juice is bursting with natural refreshing flavor and essential nutrients. Our dedication to quality and sustainability is evident in everything we do.
+            </div>
+        </div>
+        <div class="container">
+            <div class="row" style="color: white">
+                <div class="col-md-2 image_col">
+                    <img src="{% static 'images/Figure 1-natural sugar.jpg' %}" style="border-radius: 500px;" alt="Image 1">
+                    <p>Naturally occurring sugars</p>
+                </div>
+                <div class="col-md-2 image_col">
+                    <img src="{% static 'images/Figure 2-preservative-free.jpg' %}" style="border-radius: 500px;" alt="Image 2">
+                    <p>Preservative free</p>
+                </div>
+                <div class="col-md-2 image_col">
+                    <img src="{% static 'images/Figure 3-non-GMO.jpg' %}" style="border-radius: 500px;" alt="Image 3">
+                    <p>Premium juices are non-GMO</p>
+                </div>
+                <div class="col-md-2 image_col">
+                    <img src="{% static 'images/Figure 4-Gluten.jpg' %}" style="border-radius: 500px;" alt="Image 4">
+                    <p>Inherently gluten-free</p>
+                </div>
+                <div class="col-md-2 image_col">
+                    <img src="{% static 'images/Figure 5- 100% Vegan.jpg' %}"  style="border-radius: 500px;" alt="Image 5">
+                    <p>No animal product/ or the byproduct</p>
+                </div>
+            </div>
+        </div>
+    </div>
+     <div class="container"  style="color: white;margin-top: 50px;">
+        <h2 style="text-align: center; font-size: 26px">Contact Address</h2>
+        <div style="text-align: center;font-size: 24px;">
+            <p> VerdantSip, 123 Orchard Lane, Springfield.<br> Mobile: +1 (402) 111-2222</p>
+
+        </div>
+    </div>
+{% endblock %}
